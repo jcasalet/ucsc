@@ -36,7 +36,7 @@ public class BinReads {
             String line;
             long lastPosition = 0;
             long startPosition = 0;
-            long coverage=0;
+            long depth=0;
             int count = 0;
             int totalCount=0;
             long length = 0;
@@ -58,9 +58,9 @@ public class BinReads {
                     }
                     else if(! closeEnough(startPosition, position, binWidth)) {                        
                         length = lastPosition - startPosition + 1;
-                        coverage = totalCount / length;
+                        depth = totalCount / length;
                         writer.append(sampleName + "," + chromosome + "," + startPosition + "," + 
-                                        lastPosition + "," + length + "," + totalCount + "," + coverage + "\n");
+                                        lastPosition + "," + length + "," + totalCount + "," + depth + "\n");
                         writer.flush();
                         startPosition = position;
                         lastPosition = position;
@@ -74,9 +74,9 @@ public class BinReads {
                 }
             // write the last record
             length = lastPosition - startPosition + 1;
-            coverage = totalCount / length;
+            depth = totalCount / length;
                 writer.append(sampleName + "," + chromosome + "," + startPosition + "," + 
-                            lastPosition + "," + length + "," + totalCount + "," + coverage + "\n");
+                            lastPosition + "," + length + "," + totalCount + "," + depth + "\n");
                 writer.flush();
             
         

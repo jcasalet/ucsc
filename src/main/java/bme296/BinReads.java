@@ -16,8 +16,8 @@ public class BinReads {
     }
     
     public static void main(String[] args) {
-        if(args.length != 4) {
-            System.err.println("usage: BinReads <sample-name> <input-file> <output-file> <bin-width>");
+        if(args.length != 5) {
+            System.err.println("usage: BinReads <sample-name> <input-file> <output-file> <bin-width> <min-depth>");
             System.exit(1);   
         }
         
@@ -25,6 +25,7 @@ public class BinReads {
         String inputFile = args[1];
         String outputFile = args[2];
         int binWidth = Integer.parseInt(args[3]);
+        int minDepth = Integer.parseInt(args[4]);
         
         // chr  pos     count
         BufferedReader reader;
@@ -59,9 +60,11 @@ public class BinReads {
                     else if(! closeEnough(startPosition, position, binWidth)) {                        
                         length = lastPosition - startPosition + 1;
                         depth = totalCount / length;
-                        writer.append(sampleName + "," + chromosome + "," + startPosition + "," + 
+                        if(depth >= minDepth) {
+                            writer.append(sampleName + "," + chromosome + "," + startPosition + "," + 
                                         lastPosition + "," + length + "," + totalCount + "," + depth + "\n");
-                        writer.flush();
+                            writer.flush();
+                        }
                         startPosition = position;
                         lastPosition = position;
                         totalCount = count;
@@ -75,9 +78,11 @@ public class BinReads {
             // write the last record
             length = lastPosition - startPosition + 1;
             depth = totalCount / length;
+            if(depth > minDepth) {
                 writer.append(sampleName + "," + chromosome + "," + startPosition + "," + 
                             lastPosition + "," + length + "," + totalCount + "," + depth + "\n");
                 writer.flush();
+            }
             
         
         // close i/o 

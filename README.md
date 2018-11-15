@@ -32,8 +32,7 @@ mvn exec:java -Dexec.mainClass="bme296.BinReads $sampleName $depthFile $outputFi
 ## What to look for?
 Looking at output file for each chromome, you'll notice:
 
-* not all bins are exactly your bin width, but roughly they are 
+* not all bins are exactly your bin width, but roughly they are.  That's due to the widthEpsilon parameter and the fact that `samtools depth` doesn't generate completely contiguous reads
 * some counts are off the charts, but most follow a trend 
-* updateDocuments() that shows different ways of updating documents
 
 

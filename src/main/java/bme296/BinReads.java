@@ -8,23 +8,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 public class BinReads {
-    static boolean closeEnough(long n1, long n2, int epsilon) {
-        if(Math.abs(n1 - n2) <= epsilon)
+    static boolean closeEnough(long n1, long n2, long width, long epsilon) {
+        if(Math.abs(n1 - n2) <= (width + epsilon))
             return true;
         else
             return false;
     }
     
     public static void main(String[] args) {
-        if(args.length != 5) {
-            System.err.println("usage: BinReads <sample-name> <input-file> <output-file> <bin-width> <min-depth>");
+        if(args.length != 6) {
+            System.err.println("usage: BinReads <sample-name> <input-file> <output-file> <bin-width> <width-epsilon> <min-depth>");
             System.exit(1);   
         }
         
         String sampleName = args[0];
         String inputFile = args[1];
         String outputFile = args[2];
-        int binWidth = Integer.parseInt(args[3]);
+        long binWidth = Long.parseLong(args[3]);
+        long widthEpsilon = Long.parseLong(args[4]);
         int minDepth = Integer.parseInt(args[4]);
         
         // chr  pos     count
@@ -57,7 +58,7 @@ public class BinReads {
                         firstLine = false;
                         continue;
                     }
-                    else if(! closeEnough(startPosition, position, binWidth)) {                        
+                    else if(! closeEnough(startPosition, position, binWidth, widthEpsilon)) {                        
                         length = lastPosition - startPosition + 1;
                         depth = totalCount / length;
                         if(depth >= minDepth) {

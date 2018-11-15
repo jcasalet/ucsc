@@ -10,7 +10,7 @@ This project contains utilities developed for the BMEB track
 
 ## Usage
 
-Run samtools mpileup:
+Run samtools depth:
 ```
 samtools depth $bamFile > $depthFile 
 
@@ -25,7 +25,7 @@ mvn clean package
 and run the application using:
 
 ```
-mvn exec:java -Dexec.mainClass="bme296.BinReads $sampleName $depthFile $outputFile $binWidth
+mvn exec:java -Dexec.mainClass="bme296.BinReads $sampleName $depthFile $outputFile $binWidth $widthEpsilon
 ```
 
 
